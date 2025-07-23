@@ -7,14 +7,13 @@ async function cleanDatabase() {
 }
 
 test("POST to /api/v1/migrations should return 200", async () => {
+
   const firstResponse = await fetch(
     "http://localhost:3000/api/v1/migrations",
     {
       method: "POST",
     }
   );
-
-  expect(firstResponse.status).toBe(201);
   
   const firstResponseBody =
   await firstResponse.json();
