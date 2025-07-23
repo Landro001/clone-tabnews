@@ -1,10 +1,10 @@
 import database from "infra/database";
+import orchestrator from "tests/orchestrator.js";
 
-beforeAll(cleanDatabase);
-
-async function cleanDatabase() {
+beforeAll(async () => {
+  await orchestrator.waitForAllServices();
   await database.query("DROP schema public CASCADE; CREATE schema public;");
-}
+});
 
 test("POST to /api/v1/migrations should return 200", async () => {
 
@@ -14,6 +14,8 @@ test("POST to /api/v1/migrations should return 200", async () => {
       method: "POST",
     }
   );
+
+  expect(firstResponse.status).toBe(201);
   
   const firstResponseBody =
   await firstResponse.json();
