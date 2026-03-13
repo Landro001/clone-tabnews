@@ -19,6 +19,9 @@
     "lint:prettier:fix": "prettier --write .",
     "lint:eslint:check": "next lint --dir .",
     "lint:secretlint:check": "npx secretlint \"**/*\"",
+    "migration:create": "node-pg-migrate -m infra/migrations create",
+    "migration:up": "node-pg-migrate -m infra/migrations --envPath .env.development up",
+    "wait-for-postgres": "node infra/scripts/wait-for-postgres.js",
     "prepare": "husky",
     "commit": "cz"
   },
