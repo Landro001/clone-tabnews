@@ -13,7 +13,7 @@ describe("POST to /api/v1/migrations", () => {
           "http://localhost:3000/api/v1/migrations",
           {
             method: "POST",
-          }
+          },
         );
 
         expect(firstResponse.status).toBe(201);
@@ -29,7 +29,7 @@ describe("POST to /api/v1/migrations", () => {
           "http://localhost:3000/api/v1/migrations",
           {
             method: "POST",
-          }
+          },
         );
 
         expect(secondResponseBody.status).toBe(200);
