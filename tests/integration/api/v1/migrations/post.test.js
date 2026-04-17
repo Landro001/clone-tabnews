@@ -9,35 +9,35 @@ describe("POST to /api/v1/migrations", () => {
   describe("Anonymous user", () => {
     describe("Running pending migrations", () => {
       test("For the first time", async () => {
-        const firstResponse = await fetch(
+        const response1 = await fetch(
           "http://localhost:3000/api/v1/migrations",
           {
             method: "POST",
           },
         );
 
-        expect(firstResponse.status).toBe(201);
+        expect(response1.status).toBe(201);
 
-        const firstResponseBody = await firstResponse.json();
+        const response1Body = await response1.json();
 
-        expect(Array.isArray(firstResponseBody)).toBe(true);
-        expect(firstResponseBody.length).toBeGreaterThan(0);
+        expect(Array.isArray(response1Body)).toBe(true);
+        expect(response1Body.length).toBeGreaterThan(0);
       });
 
       test("For the second time", async () => {
-        const secondResponseBody = await fetch(
+        const response2Body = await fetch(
           "http://localhost:3000/api/v1/migrations",
           {
             method: "POST",
           },
         );
 
-        expect(secondResponseBody.status).toBe(200);
+        expect(response2Body.status).toBe(200);
 
-        const secondResponseBodyBody = await secondResponseBody.json();
+        const response2BodyBody = await response2Body.json();
 
-        expect(Array.isArray(secondResponseBodyBody)).toBe(true);
-        expect(secondResponseBodyBody.length).toEqual(0);
+        expect(Array.isArray(response2BodyBody)).toBe(true);
+        expect(response2BodyBody.length).toEqual(0);
       });
     });
   });
