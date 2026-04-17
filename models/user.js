@@ -2,10 +2,10 @@ import database from "infra/database.js";
 import { ValidationError } from "infra/errors.js";
 
 async function create(userInputValues) {
-  await validateUniqueEmail(userInputValues.email)
-  await validateUniqueUsername(userInputValues.username)
+  await validateUniqueEmail(userInputValues.email);
+  await validateUniqueUsername(userInputValues.username);
 
-  const newUser = await runInsertQuery(userInputValues)
+  const newUser = await runInsertQuery(userInputValues);
   return newUser;
 
   async function validateUniqueEmail(email) {
@@ -24,8 +24,8 @@ async function create(userInputValues) {
     if (results.rowCount > 0) {
       throw new ValidationError({
         message: "O email informado já está sendo utilizado.",
-        action: "Utilize outro email para realizar o cadastro."
-      })
+        action: "Utilize outro email para realizar o cadastro.",
+      });
     }
   }
 
@@ -46,11 +46,11 @@ async function create(userInputValues) {
       throw new ValidationError({
         message: "O username informado já está sendo utilizado.",
         action: "Utilize outro username para realizar o cadastro.",
-      })
+      });
     }
   }
 
-  async function runInsertQuery(userInputValues){
+  async function runInsertQuery(userInputValues) {
     const results = await database.query({
       text: `
         INSERT INTO 
@@ -67,7 +67,7 @@ async function create(userInputValues) {
       ],
     });
 
-    return results.rows[0]
+    return results.rows[0];
   }
 }
 
