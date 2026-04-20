@@ -1,8 +1,21 @@
 import bcryptjs from "bcryptjs";
+import { createHmac } from "node:crypto";
 
 async function hash(password) {
+  const passwordWithPepper = applyPepper(password);
   const rounds = getNumberOfRounds();
-  return await bcryptjs.hash(password, rounds);
+  return await bcryptjs.hash(passwordWithPepper, rounds);
+}
+
+function applyPepper(password) {
+  const pepper = process.env.PEPPER || "";
+  if (!pepper) return password;
+
+  const passwordWithPepper = createHmac("sha256", pepper)
+    .update(password)
+    .digest("base64");
+
+  return passwordWithPepper;
 }
 
 function getNumberOfRounds() {
@@ -10,7 +23,8 @@ function getNumberOfRounds() {
 }
 
 async function compare(providedPassword, storedPassword) {
-  return await bcryptjs.compare(providedPassword, storedPassword);
+  const providedPasswordWithPepper = applyPepper(providedPassword);
+  return await bcryptjs.compare(providedPasswordWithPepper, storedPassword);
 }
 
 const password = {
