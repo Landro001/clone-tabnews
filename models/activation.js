@@ -103,7 +103,7 @@ async function activateUserByUserId(userId) {
 
 async function sendEmailToUser(user, activationToken) {
   await email.send({
-    from: "BetweenDevs <contato@betweendevs.com.br>",
+    from: "BetweenDevs <contato@alerts.betweendevs.com.br>",
     to: user.email,
     subject: "Ative seu cadastro no BetweenDevs!",
     text: `${user.username}, clique no link abaixo para ativar seu cadastro no BetweenDevs:
